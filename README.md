@@ -1,1 +1,2 @@
 # EShopMicroservice
+This is a project create for leaning and improving my skills on microservice. I'll split this solution in two main folders, `be` and `fe`. `be` will have anything related to the server, which means the main microservices and the gateway (TBD). The `fe` will have the client, that I'll implement on React (TBD).

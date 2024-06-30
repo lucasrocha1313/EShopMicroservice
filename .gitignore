@@ -396,3 +396,22 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# # Default ignored files
+# **/.idea/shelf/
+# **/.idea/workspace.xml
+# # Rider ignored files
+# **/.idea/modules.xml
+# **/.idea/contentModel.xml
+# **/.idea/projectSettingsUpdater.xml
+# **/.idea/.idea.EShopMicroservices.iml
+# # Editor-based HTTP Client requests
+# **/.idea/httpRequests/
+# # Datasource local storage ignored files
+# **/.idea/dataSources/
+# **/.idea/dataSources.local.xml
+# **/.idea/encodings.xml
+
+# **/.idea/indexLayout.xml
+# **/.idea/.name
+**/.idea/*

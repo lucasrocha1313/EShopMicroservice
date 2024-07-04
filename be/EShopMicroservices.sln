@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{8CE32046-B53F-426E-90CC-EA858AE3DACC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{34990D4F-D03B-4FA1-AFD1-56D3FDA940B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{B283C4E9-71C8-413D-829D-FBE8F63A5691}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,11 +18,16 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{B283C4E9-71C8-413D-829D-FBE8F63A5691} = {34990D4F-D03B-4FA1-AFD1-56D3FDA940B3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8CE32046-B53F-426E-90CC-EA858AE3DACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8CE32046-B53F-426E-90CC-EA858AE3DACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE32046-B53F-426E-90CC-EA858AE3DACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE32046-B53F-426E-90CC-EA858AE3DACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B283C4E9-71C8-413D-829D-FBE8F63A5691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B283C4E9-71C8-413D-829D-FBE8F63A5691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B283C4E9-71C8-413D-829D-FBE8F63A5691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B283C4E9-71C8-413D-829D-FBE8F63A5691}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

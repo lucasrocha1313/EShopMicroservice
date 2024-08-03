@@ -1,20 +1,12 @@
 using Carter;
-using Marten;
+using Catalog.API.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//TODO - move these to a separate file
 //Add services to the container
-builder.Services.AddCarter();
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssemblies(typeof(Program).Assembly);
-});
-builder.Services.AddMarten(opts =>
-{
-    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
-    opts.DisableNpgsqlLogging = true;
-}).UseLightweightSessions();
-
+var assembly = typeof(Program).Assembly;
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 

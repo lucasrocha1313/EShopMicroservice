@@ -14,8 +14,8 @@ public static class ServiceConfiguration
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblies(assembly);
-            //TODO - read about IPipelineBehavior
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
         services.AddValidatorsFromAssembly(assembly);
         services.AddCarter();

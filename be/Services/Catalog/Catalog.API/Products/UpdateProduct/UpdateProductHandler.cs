@@ -16,13 +16,11 @@ public record UpdateProductCommand(
     decimal Price)
     : ICommand<UpdateProductResult>;
 
-internal class UpdateProductCommandHandler(IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
+internal class UpdateProductCommandHandler(IDocumentSession session)
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("[UpdateProductCommandHandler] - called with {@Command}", request);
-        
         var product = await session.LoadAsync<Product>(request.Id, cancellationToken);
 
         if (product == null)

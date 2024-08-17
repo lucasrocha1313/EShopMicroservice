@@ -1,4 +1,5 @@
 using Carter;
+using Catalog.API.Enums;
 using Catalog.API.Models;
 using Mapster;
 using MediatR;
@@ -11,7 +12,7 @@ public class GetProductByCategoryEndpoint: ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/products/category/{category}", async (string category, ISender sender) =>
+        app.MapGet("/products/category/{category}", async (CategoryEnum category, ISender sender) =>
         {
             var result = await sender.Send(new GetProductByCategoryQuery(category));
             var response = result.Adapt<GetProductByCategoryResponse>();

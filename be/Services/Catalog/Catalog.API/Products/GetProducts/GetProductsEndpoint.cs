@@ -6,6 +6,7 @@ using MediatR;
 namespace Catalog.API.Products.GetProducts;
 
 
+//TODO: Should have an DTO or ViewModel for the response
 public record GetProductsResponse(IEnumerable<Product> Products);
 
 public class GetProductsEndpoint: ICarterModule

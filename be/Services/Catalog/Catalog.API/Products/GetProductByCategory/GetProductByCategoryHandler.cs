@@ -1,11 +1,12 @@
 using BuildingBlocks.CQRS;
+using Catalog.API.Enums;
 using Catalog.API.Models;
 using Marten;
 
 namespace Catalog.API.Products.GetProductByCategory;
 
 public record GetProductByCategoryResult(IEnumerable<Product> Products);
-public record GetProductByCategoryQuery(string Category): IQuery<GetProductByCategoryResult>;
+public record GetProductByCategoryQuery(CategoryEnum Category): IQuery<GetProductByCategoryResult>;
 
 internal class GetProductByCategoryQueryHandler(IDocumentSession session)
     : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>

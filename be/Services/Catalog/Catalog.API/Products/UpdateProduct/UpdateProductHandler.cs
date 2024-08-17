@@ -1,4 +1,5 @@
 using BuildingBlocks.CQRS;
+using Catalog.API.Enums;
 using Catalog.API.Exceptions;
 using Catalog.API.Models;
 using Marten;
@@ -10,7 +11,7 @@ public record UpdateProductResult(bool IsSuccess);
 public record UpdateProductCommand(
     Guid Id,
     string Name,
-    List<string> Category,
+    List<CategoryEnum> Category,
     string Description,
     string ImageFile,
     decimal Price)

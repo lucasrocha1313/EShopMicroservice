@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.CQRS;
+using Catalog.API.Enums;
 using Catalog.API.Models;
 using Marten;
 
@@ -6,7 +7,7 @@ namespace Catalog.API.Products.CreateProduct;
 
 public record CreateProductCommand(
     string Name,
-    List<string> Category,
+    List<CategoryEnum> Category,
     string Description,
     string ImageFile,
     decimal Price): ICommand<CreateProductResult>;

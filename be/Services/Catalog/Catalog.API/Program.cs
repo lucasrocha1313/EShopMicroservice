@@ -4,7 +4,7 @@ using Catalog.API.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddServices(builder.Configuration);
+builder.Services.AddServices(builder.Configuration, builder.Environment.IsDevelopment());
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();

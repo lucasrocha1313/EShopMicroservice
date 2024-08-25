@@ -21,7 +21,7 @@ It allows you to create, update, delete and list products.
 - Install Docker
 - Run the following command in the root folder of the project:
 ```bash
-docker-compose up
+docker compose -f docker-compose.yml -f docker-compose.overridel.yml up
 ```
-- The backend will be available at http://localhost:5000
-- The database will be available at http://localhost:5432
+- The Catalog service will be available at http://localhost:6000
+  - HTTPS is not working for any service yet due certificate configuration

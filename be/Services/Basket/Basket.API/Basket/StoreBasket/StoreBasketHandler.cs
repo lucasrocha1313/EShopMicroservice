@@ -1,3 +1,4 @@
+using Basket.API.Data;
 using Basket.API.Models;
 using BuildingBlocks.CQRS;
 
@@ -8,14 +9,13 @@ public record StoreBasketCommand(ShoppingCart Cart): ICommand<StoreBasketResult>
 
 
 
-public class StoreBasketCommandHandler: ICommandHandler<StoreBasketCommand, StoreBasketResult>
+public class StoreBasketCommandHandler(IBasketRepository repository): ICommandHandler<StoreBasketCommand, StoreBasketResult>
 {
     public async Task<StoreBasketResult> Handle(StoreBasketCommand request, CancellationToken cancellationToken)
     {
         var cart = request.Cart;
         
-        //TODO: Store Basket in DB
-        //TODO: Update cache
-        return new StoreBasketResult("swn");
+        await repository.StoreBasket(cart, cancellationToken);
+        return new StoreBasketResult(cart.UserName);
     }
 }

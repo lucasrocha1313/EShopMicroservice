@@ -1,3 +1,4 @@
+using Basket.API.Data;
 using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using Carter;
@@ -23,6 +24,9 @@ builder.Services.AddMarten(opts =>
     opts.Connection(builder.Configuration.GetConnectionString("Database") ?? string.Empty);
     opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
+
+// Register repositories
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 var app = builder.Build();
 

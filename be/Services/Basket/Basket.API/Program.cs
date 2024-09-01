@@ -1,6 +1,7 @@
 using Basket.API.Data;
 using Basket.API.Models;
 using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.Handler;
 using Carter;
 using Marten;
 
@@ -28,6 +29,9 @@ builder.Services.AddMarten(opts =>
 // Register repositories
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
+// Register exception handler
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,5 +42,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapCarter();
+app.UseExceptionHandler(_ =>{});
 
 app.Run();

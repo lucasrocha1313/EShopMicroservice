@@ -20,7 +20,7 @@ var app = builder.Build();
 
 //Configure the http request pipeline
 app.MapCarter();
-app.UseExceptionHandler(o => {});
+app.UseExceptionHandler(_ => {});
 
 app.UseHealthChecks("/health", new HealthCheckOptions
 {

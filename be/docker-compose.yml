@@ -1,16 +1,8 @@
 ﻿services:
   catalogdb:
     image: postgres
-    container_name: catalogdb
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgress@2024
-      POSTGRES_DB: CatalogDb
-    restart: no
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_catalog:/var/lib/postgresql/data
+  basketdb:
+    image: postgres
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -19,3 +11,4 @@
     
 volumes:
   postgres_catalog:
+  postgres_basket:

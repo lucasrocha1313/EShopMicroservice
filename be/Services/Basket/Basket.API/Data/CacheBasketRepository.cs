@@ -5,8 +5,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 
 namespace Basket.API.Data;
-
-//TODO - Need to test redisOptions. Check the configuration on Program.cs
 public class CacheBasketRepository(IBasketRepository repository, IDistributedCache cache, IOptions<RedisOptions> redisOptions)
     : IBasketRepository
 {

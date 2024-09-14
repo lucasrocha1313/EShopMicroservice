@@ -3,7 +3,7 @@ using BuildingBlocks.CQRS;
 
 namespace Basket.API.Basket.DeleteBasket;
 
-public record DeleteBasketResult(bool isSuccess);
+public record DeleteBasketResult(bool IsSuccess);
 
 public record DeleteBasketCommand(string UserName): ICommand<DeleteBasketResult>;
 

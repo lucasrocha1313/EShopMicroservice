@@ -5,7 +5,6 @@ services:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgress@2024
         POSTGRES_DB: CatalogDb
-      restart: always
       ports:
           - "5432:5432"
       volumes:
@@ -16,11 +15,15 @@ services:
       POSTGRES_USER: basket
       POSTGRES_PASSWORD: basket@2024
       POSTGRES_DB: BasketDb
-    restart: always
     ports:
       - "5433:5432"
     volumes:
       - postgres_basket:/var/lib/postgresql/data
+  distributedcache:
+    container_name: distributedcache
+    image: redis
+    ports:
+      - "6379:6379"
   catalog.api:
     environment:
         - ASPNETCORE_ENVIRONMENT=Development

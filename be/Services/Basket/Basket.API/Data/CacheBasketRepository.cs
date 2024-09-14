@@ -1,10 +1,14 @@
 using System.Text.Json;
+using Basket.API.Configurations;
 using Basket.API.Models;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Options;
 
 namespace Basket.API.Data;
 
-public class CacheBasketRepository(IBasketRepository repository, IDistributedCache cache): IBasketRepository
+//TODO - Need to test redisOptions. Check the configuration on Program.cs
+public class CacheBasketRepository(IBasketRepository repository, IDistributedCache cache, IOptions<RedisOptions> redisOptions)
+    : IBasketRepository
 {
     public async Task<ShoppingCart> GetBasket(string userName, CancellationToken cancellationToken = default)
     {

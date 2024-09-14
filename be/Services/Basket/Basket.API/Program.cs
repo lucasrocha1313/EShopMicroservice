@@ -4,7 +4,9 @@ using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
 using Carter;
+using HealthChecks.UI.Client;
 using Marten;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 
@@ -44,6 +46,7 @@ builder.Services.AddScoped<IBasketRepository, CacheBasketRepository>(provider =>
         provider.GetRequiredService<IOptions<RedisOptions>>());
 });
 
+// Register cache
 builder.Services.AddStackExchangeRedisCache(opts =>
 {
     opts.Configuration = builder.Configuration.GetConnectionString("Redis") ?? string.Empty;
@@ -52,6 +55,9 @@ builder.Services.AddStackExchangeRedisCache(opts =>
 
 // Register exception handler
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Database") ?? string.Empty)
+    .AddRedis(builder.Configuration.GetConnectionString("Redis") ?? string.Empty); // Add health check services
 
 var app = builder.Build();
 
@@ -64,5 +70,9 @@ if (app.Environment.IsDevelopment())
 
 app.MapCarter();
 app.UseExceptionHandler(_ =>{});
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+}); // Add health check endpoint
 
 app.Run();

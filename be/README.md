@@ -5,7 +5,8 @@ Note: Main used packager are separate on a Building Block project so they can be
 - Carter: Simplifies the creation of web APIs with minimal code.
 - Marten: Facilitates interaction with a Postgres database.
 - MediatR: Implements the mediator pattern for handling requests and notifications.
-
+- Swashbuckle: Generates OpenAPI documentation for the API.
+- FluentValidation: Provides a fluent interface for validating objects.
 
 ### Services
 #### Catalog
@@ -15,6 +16,28 @@ This service manages the product lifecycle within the system, including creating
 **Key Architectural Decisions**
 - **CQRS Pattern**: The backend employs the Command Query Responsibility Segregation (CQRS) pattern for handling different types of operations.
 - **Mediator Pattern**: The Mediator pattern is used to decouple the request handling process, making the codebase more maintainable and modular.
+
+**API Endpoints**
+- **GET /products**: Retrieves a list of products. Pagination is supported (For instance, pageNumber=2&pageSize=5).
+- **GET /products/{id}**: Retrieves a product by ID.
+- **POST /products**: Creates a new product.
+- **PUT /products**: Updates an existing product.
+- **DELETE /products/{id}**: Deletes a product by ID.
+- **GET /products/category/{category}**: Retrieves a list of products by category.
+
+#### Basket
+This service manages the shopping cart lifecycle within the system, including adding, updating, deleting, and listing items in the cart.
+
+**Key Architectural Decisions**
+- **CQRS Pattern**: The backend employs the Command Query Responsibility Segregation (CQRS) pattern for handling different types of operations.
+- **Mediator Pattern**: The Mediator pattern is used to decouple the request handling process, making the codebase more maintainable and modular.
+- **Caching**: The service uses Redis to cache the basket items for a specific user. This helps to reduce the load on the database and improve performance.
+  - Decorator Pattern: The decorator pattern is used to add caching functionality to the basket repository without modifying the existing code. This is transparent to the client code and allows for easy extension of functionality. 
+
+**API Endpoints**
+- **GET /basket/{userId}**: Retrieves the basket items for a specific user.
+- **POST /basket**: Adds a new item to the basket.
+- **DELETE /basket/{userId}**: Deletes the basket items for a specific user.
 
 ### How to run
 - **Install Docker**: Ensure Docker is installed on your system.
@@ -26,4 +49,10 @@ docker compose -f docker-compose.yml -f docker-compose.overridel.yml up
 ```bash
 curl --location 'http://localhost:6000/products?pageNumber=1&pageSize=5'
 ```
-- HTTPS is not supported in the current configuration due issues in setting up the certificates on linux. I'll fix this on the future.
+- **Access the Basket Service:** The Basket service will be available at http://localhost:6001/. Example request:
+```bash
+curl --location --request GET 'http://localhost:6001/basket/some-username'
+```
+
+
+`Note:  HTTPS is not supported in the current configuration due issues in setting up the certificates on linux. I'll fix this on the future.`

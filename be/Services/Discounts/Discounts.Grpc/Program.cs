@@ -1,4 +1,6 @@
+using Discounts.Grpc.Data;
 using Discounts.Grpc.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 //TODO: Remove swagger if it do not work
 builder.Services.AddGrpc().AddJsonTranscoding();
+builder.Services.AddDbContext<DiscountContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("Database"));
+});
+
 builder.Services.AddGrpcSwagger();
 builder.Services.AddSwaggerGen(c =>
 {

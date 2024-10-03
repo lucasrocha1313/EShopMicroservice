@@ -415,3 +415,8 @@ FodyWeavers.xsd
 # **/.idea/indexLayout.xml
 # **/.idea/.name
 **/.idea/*
+
+# Ignore discount db
+/be/Services/Discounts/Discounts.Grpc/discountsdb
+/be/Services/Discounts/Discounts.Grpc/discountsdb-shm
+/be/Services/Discounts/Discounts.Grpc/discountsdb-wal

@@ -12,6 +12,12 @@ namespace Discounts.Grpc.Services;
 public class DiscountService(DiscountContext dbContext, ILogger<DiscountService> logger): 
     Discount.Grpc.DiscountService.DiscountServiceBase
 {
+    /// <summary>
+    /// Get discount
+    /// </summary>
+    /// <param name="request">Product name to be searched</param>
+    /// <param name="context"></param>
+    /// <returns>Coupon found if any</returns>
     public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
     {
         var coupon = await dbContext.Coupons.FirstOrDefaultAsync(c => c.ProductName == request.ProductName) ?? new Coupon
@@ -35,16 +41,78 @@ public class DiscountService(DiscountContext dbContext, ILogger<DiscountService>
         return couponModel;
     }
 
-    public override Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
+    /// <summary>
+    /// Create discount
+    /// </summary>
+    /// <param name="request">Coupon data</param>
+    /// <param name="context"></param>
+    /// <returns>Model created</returns>
+    /// <exception cref="RpcException">If cupon date is NULL, it will not be created</exception>
+    public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
     {
-        return base.CreateDiscount(request, context);
+        var coupon = new Coupon
+        {
+            ProductName = request.ProductName,
+            Description = request.Description,
+            Amount = request.Amount
+        };
+
+        if (coupon is null)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, "Coupon could not be created"));
+        }
+        
+        dbContext.Coupons.Add(coupon);
+        await dbContext.SaveChangesAsync();
+        
+        logger.LogInformation("Discount is successfully created. ProductName: {ProductName}", coupon.ProductName);
+        
+        return BuildCouponModel(coupon);
     }
     
-    public override Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
+    /// <summary>
+    /// Update discount
+    /// </summary>
+    /// <param name="request">Coupon data to update</param>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    /// <exception cref="RpcException">If cupon date is NULL, it will not be updated</exception>
+    public override async Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
     {
-        return base.UpdateDiscount(request, context);
+        var coupon = new Coupon
+        {
+            Id = request.Id,
+            ProductName = request.ProductName,
+            Description = request.Description,
+            Amount = request.Amount
+        };
+
+        if (coupon is null)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, "Coupon could not be created"));
+        }
+        
+        dbContext.Coupons.Update(coupon);
+        await dbContext.SaveChangesAsync();
+        
+        logger.LogInformation("Discount is successfully updated. ProductName: {ProductName}", coupon.ProductName);
+        
+        return BuildCouponModel(coupon);
     }
-    
+
+    private static CouponModel BuildCouponModel(Coupon coupon)
+    {
+        var couponModel = new CouponModel
+        {
+            Id = coupon.Id,
+            ProductName = coupon.ProductName,
+            Description = coupon.Description,
+            Amount = coupon.Amount
+        };
+
+        return couponModel;
+    }
+
     public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
     {
         return base.DeleteDiscount(request, context);

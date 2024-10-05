@@ -49,9 +49,11 @@ services:
 #        - ASPNETCORE_HTTPS_PORTS=8081 I need to found out how to install the development certificate
         - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=basket;Password=basket@2024
         - ConnectionStrings__Redis=distributedcache:6379
+        - GrpcSettings__DiscountsUrl=http://discount.grpc:8080
     depends_on:
       - basketdb
       - distributedcache
+      - discount.grpc
     ports:
       - "6001:8080"
 #      - "6061:8081"

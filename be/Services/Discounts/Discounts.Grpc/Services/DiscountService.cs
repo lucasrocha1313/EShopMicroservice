@@ -42,6 +42,22 @@ public class DiscountService(DiscountContext dbContext, ILogger<DiscountService>
     }
 
     /// <summary>
+    /// Get all discounts
+    /// </summary>
+    /// <param name="request">No params</param>
+    /// <param name="context"></param>
+    /// <returns>All discounts</returns>
+    public override async Task<GetAllDiscountsResponse> GetAllDiscounts(GetAllDiscountsRequest request, ServerCallContext context)
+    {
+        var coupons = await dbContext.Coupons.ToListAsync();
+
+        var response = new GetAllDiscountsResponse();
+        response.Coupons.AddRange(coupons.Select(BuildCouponModel));
+
+        return response;
+    }
+
+    /// <summary>
     /// Create discount
     /// </summary>
     /// <param name="request">Coupon data</param>
@@ -113,8 +129,23 @@ public class DiscountService(DiscountContext dbContext, ILogger<DiscountService>
         return couponModel;
     }
 
-    public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
+    public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
     {
-        return base.DeleteDiscount(request, context);
+        var coupon = await dbContext.Coupons.FirstOrDefaultAsync(c => c.Id == request.Id);
+
+        if (coupon is null)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Coupon not found"));
+        }
+
+        dbContext.Coupons.Remove(coupon);
+        await dbContext.SaveChangesAsync();
+
+        logger.LogInformation("Discount is successfully deleted. ProductName: {ProductName}", coupon.ProductName);
+
+        return new DeleteDiscountResponse
+        {
+            Success = true
+        };
     }
 }

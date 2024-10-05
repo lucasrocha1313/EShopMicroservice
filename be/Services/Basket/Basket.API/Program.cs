@@ -4,6 +4,7 @@ using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
 using Carter;
+using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Marten;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -17,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add services to the container.
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
 {
@@ -25,14 +28,13 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
+
+//Data services
 builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database") ?? string.Empty);
     opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
-
-// Register options
-builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection("RedisOptions"));
 
 // Register repositories
 builder.Services.AddScoped<BasketRepository>();
@@ -46,6 +48,9 @@ builder.Services.AddScoped<IBasketRepository, CacheBasketRepository>(provider =>
         provider.GetRequiredService<IOptions<RedisOptions>>());
 });
 
+// Register options
+builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection("RedisOptions"));
+
 // Register cache
 builder.Services.AddStackExchangeRedisCache(opts =>
 {
@@ -53,6 +58,13 @@ builder.Services.AddStackExchangeRedisCache(opts =>
     opts.InstanceName = builder.Configuration["RedisOptions:InstanceName"];
 });
 
+// Register gRPC client
+builder.Services.AddGrpcClient<DiscountService.DiscountServiceClient>(opts =>
+{
+    opts.Address = new Uri(builder.Configuration["GrpcSettings:DiscountsUrl"] ?? string.Empty);
+});
+
+//Cross-cutting Services
 // Register exception handler
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()

@@ -55,6 +55,12 @@ This service manages the discount lifecycle within the system, including creatin
 - **DeleteDiscount**: Deletes a discount by product ID.
 - **GetAllDiscounts**: Retrieves a list of all discounts.
 
+### Ordering
+This service manages the order lifecycle within the system, including creating, updating, deleting, and listing orders.
+
+**Key Architectural Decisions**
+- **Clean Architecture**: The service is designed using the Clean Architecture pattern, with separate layers for the presentation, application, domain, and infrastructure.
+
 ### How to run
 - **Install Docker**: Ensure Docker is installed on your system.
 - **Start the Services**: Execute the following command in the project's root directory

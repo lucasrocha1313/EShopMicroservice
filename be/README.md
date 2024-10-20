@@ -60,6 +60,8 @@ This service manages the order lifecycle within the system, including creating, 
 
 **Key Architectural Decisions**
 - **Clean Architecture**: The service is designed using the Clean Architecture pattern, with separate layers for the presentation, application, domain, and infrastructure.
+- **Primitive Obsession**: The service uses Value Objects to represent primitive types, such as OrderId, CustomerId, OrderItemId, etc. This helps to avoid primitive obsession and improve the readability and maintainability of the code.
+- **Rich Domain Model**: The service uses a rich domain model to encapsulate business logic within the domain entities. This helps to keep the domain logic cohesive and maintainable.
 
 ### How to run
 - **Install Docker**: Ensure Docker is installed on your system.

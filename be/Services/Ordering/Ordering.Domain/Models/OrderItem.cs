@@ -7,8 +7,8 @@ public class OrderItem: Entity<OrderItemId>
 {
     public OrderItem(OrderId orderId, ProductId productId, int quantity, decimal price)
     {
-        OrderId = orderId;
-        ProductId = productId;
+        OrderId = OrderId.Of(orderId.Value);
+        ProductId = ProductId.Of(productId.Value);
         Quantity = quantity;
         Price = price;
     }

@@ -5,10 +5,11 @@ namespace Ordering.Domain.Models;
 
 public class OrderItem: Entity<OrderItemId>
 {
-    public OrderItem(OrderId orderId, ProductId productId, int quantity, decimal price)
+    internal OrderItem(OrderId orderId, ProductId productId, int quantity, decimal price)
     {
-        OrderId = OrderId.Of(orderId.Value);
-        ProductId = ProductId.Of(productId.Value);
+        Id = OrderItemId.Of(Guid.NewGuid());
+        OrderId = orderId;
+        ProductId = productId;
         Quantity = quantity;
         Price = price;
     }

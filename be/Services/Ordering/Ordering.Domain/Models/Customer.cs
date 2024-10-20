@@ -15,7 +15,7 @@ public class Customer: Entity<CustomerId>
         
         return new Customer
         {
-            Id = CustomerId.Of(id.Value),
+            Id = id,
             Name = name,
             Email = email
         };

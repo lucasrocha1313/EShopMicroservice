@@ -1,4 +1,5 @@
 using Ordering.Domain.Abstractions;
+using Ordering.Domain.Events;
 using Ordering.Domain.Exceptions;
 using Ordering.Domain.ValueObjects;
 
@@ -34,6 +35,7 @@ public class Order: Aggregate<OrderId>
         };
         
         //TODO: Add domain events
+        order.AddDomainEvent(new OrderCreatedEvent(order));
 
         return order;
     }
@@ -47,6 +49,7 @@ public class Order: Aggregate<OrderId>
         OrderStatus = orderStatus;
         
         //TODO: Add domain events
+        AddDomainEvent(new OrderUpdatedEvent(this));
     }
 
     public void Add(ProductId productId, int quantity, decimal price)

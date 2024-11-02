@@ -80,3 +80,10 @@ curl --location --request GET 'http://localhost:6001/basket/some-username'
 
 
 `Note:  HTTPS is not supported in the current configuration due issues in setting up the certificates on linux. I'll fix this on the future.`
+
+### Migration
+- **Migrate the Database**: To migrate the database, execute the following command in the Ordering.Infrastructure project directory:
+```bash
+dotnet ef migrations add {MigrationName} --output-dir Data/Migrations --project ../Ordering.Infrastructure --startup-project ../Ordering.API
+
+```

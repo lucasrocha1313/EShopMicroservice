@@ -22,4 +22,13 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Data\Migrations\20241102144846_InitialCreate.Designer.cs" />
+      <Compile Remove="Data\Migrations\20241102183652_InitialCreate_test.Designer.cs" />
+    </ItemGroup>
+
 </Project>

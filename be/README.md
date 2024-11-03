@@ -87,3 +87,7 @@ curl --location --request GET 'http://localhost:6001/basket/some-username'
 dotnet ef migrations add {MigrationName} --output-dir Data/Migrations --project ../Ordering.Infrastructure --startup-project ../Ordering.API
 
 ```
+- **Update the Database**: To update the database, execute the following command in the Ordering.Infrastructure project directory:
+```bash
+dotnet ef database update --project ../Ordering.Infrastructure --startup-project ../Ordering.API
+```

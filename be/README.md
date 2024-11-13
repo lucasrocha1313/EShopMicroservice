@@ -63,6 +63,13 @@ This service manages the order lifecycle within the system, including creating, 
 - **Primitive Obsession**: The service uses Value Objects to represent primitive types, such as OrderId, CustomerId, OrderItemId, etc. This helps to avoid primitive obsession and improve the readability and maintainability of the code.
 - **Rich Domain Model**: The service uses a rich domain model to encapsulate business logic within the domain entities. This helps to keep the domain logic cohesive and maintainable.
 
+**Database Interceptors**
+- **AuditableEntityInterceptor**: This interceptor automatically populates the CreatedAt and UpdatedAt properties of entities before saving them to the database. This helps to reduce boilerplate code and improve the consistency of the data.
+- **DispatchDomainEventsInterceptor**: This interceptor automatically dispatches domain events after saving entities to the database. This helps to decouple the domain logic from the persistence logic and improve the scalability and maintainability of the code.
+
+**Seed database**:
+- Database will be seeded with some initial data when the application starts. This is used for testing purposes.
+
 ### How to run
 - **Install Docker**: Ensure Docker is installed on your system.
 - **Start the Services**: Execute the following command in the project's root directory

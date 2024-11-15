@@ -38,7 +38,6 @@ public class Order: Aggregate<OrderId>
             OrderStatus = OrderStatus.Pending
         };
         
-        //TODO: Add domain events
         order.AddDomainEvent(new OrderCreatedEvent(order));
 
         return order;
@@ -52,7 +51,6 @@ public class Order: Aggregate<OrderId>
         Payment = payment;
         OrderStatus = orderStatus;
         
-        //TODO: Add domain events
         AddDomainEvent(new OrderUpdatedEvent(this));
     }
 

@@ -1,6 +1,6 @@
 using BuildingBlocks.CQRS;
 using Ordering.Application.Data;
-using Ordering.Application.Orders.Mapper;
+using Ordering.Application.Orders.Utils;
 
 namespace Ordering.Application.Orders.Commands.CreateOrder;
 
@@ -13,7 +13,7 @@ public class CreateCommandHandler(IApplicationDbContext dbContext)
         //Save Order entity to database
         //Return CreateOrderResult object
 
-        var order = OrderMapper.CreateNewOrder(request.Order);
+        var order = OrderUtils.CreateNewOrder(request.Order);
         dbContext.Orders.Add(order);
         await dbContext.SaveChangesAsync(cancellationToken);
 

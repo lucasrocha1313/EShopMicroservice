@@ -9,5 +9,5 @@ public record CreateOrderResult(Guid OrderId);
 
 public record CreateOrderCommand: ICommand<CreateOrderResult>
 {
-    public OrderDto Order { get; init; }
+    public required OrderDto Order { get; init; }
 }

@@ -62,6 +62,8 @@ This service manages the order lifecycle within the system, including creating, 
 - **Clean Architecture**: The service is designed using the Clean Architecture pattern, with separate layers for the presentation, application, domain, and infrastructure.
 - **Primitive Obsession**: The service uses Value Objects to represent primitive types, such as OrderId, CustomerId, OrderItemId, etc. This helps to avoid primitive obsession and improve the readability and maintainability of the code.
 - **Rich Domain Model**: The service uses a rich domain model to encapsulate business logic within the domain entities. This helps to keep the domain logic cohesive and maintainable.
+- **CQRS Pattern**: The service employs the Command Query Responsibility Segregation (CQRS) pattern for handling different types of operations.
+- **Event Sourcing**: The service uses event sourcing to store the state changes of the order entities. This helps to maintain an audit trail of the changes and enables replaying events to rebuild the state of the entities.
 
 **Database Interceptors**
 - **AuditableEntityInterceptor**: This interceptor automatically populates the CreatedAt and UpdatedAt properties of entities before saving them to the database. This helps to reduce boilerplate code and improve the consistency of the data.

@@ -1,5 +1,11 @@
 ## Backend
-Note: Main used packager are separate on a Building Block project so they can be reused in other projects
+
+### Building Blocks
+Main used packager are separate on a Building Block project so they can be reused in other projects
+- **Validations**: Contains the validation logic for the application.
+  - **ValidationBehavior**: A pipeline behavior that validates the request before it is handled by the handler. It currently uses FluentValidation for validation.
+- **Logging**: Contains the logging logic for the application.
+  - **LoggingBehavior**: A pipeline behavior that logs the request and response of the handler.
 
 ### Packages
 - Carter: Simplifies the creation of web APIs with minimal code.

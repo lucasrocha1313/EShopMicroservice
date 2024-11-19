@@ -21,7 +21,7 @@ public class UpdateOrderHandler(IApplicationDbContext dbContext)
         
         OrderUtils.UpdateOrderWithNewValues(order, request.Order);
 
-        if (order != null) dbContext.Orders.Update(order);
+        dbContext.Orders.Update(order);
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return new UpdateOrderResult(true);

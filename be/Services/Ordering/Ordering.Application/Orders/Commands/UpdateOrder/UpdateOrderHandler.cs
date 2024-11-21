@@ -1,7 +1,7 @@
 using BuildingBlocks.CQRS;
 using Ordering.Application.Data;
 using Ordering.Application.Exceptions;
-using Ordering.Application.Orders.Utils;
+using Ordering.Application.Extensions;
 using Ordering.Domain.ValueObjects;
 
 namespace Ordering.Application.Orders.Commands.UpdateOrder;
@@ -19,7 +19,7 @@ public class UpdateOrderHandler(IApplicationDbContext dbContext)
             throw new OrderingNotFoundException(request.Order.Id);
         }
         
-        OrderUtils.UpdateOrderWithNewValues(order, request.Order);
+        order.UpdateWithNewValues(request.Order);
 
         dbContext.Orders.Update(order);
         await dbContext.SaveChangesAsync(cancellationToken);

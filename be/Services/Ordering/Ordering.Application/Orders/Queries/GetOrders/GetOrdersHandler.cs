@@ -8,9 +8,9 @@ using Ordering.Application.Extensions;
 namespace Ordering.Application.Orders.Queries.GetOrders;
 
 public class GetOrdersHandler(IApplicationDbContext dbContext)
-    : IQueryHandler<GetOrders, GetOrdersResult>
+    : IQueryHandler<GetOrdersQuery, GetOrdersResult>
 {
-    public async Task<GetOrdersResult> Handle(GetOrders request, CancellationToken cancellationToken)
+    public async Task<GetOrdersResult> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
     {
         var orders = await dbContext.Orders
             .Include(o => o.OrderItems)

@@ -16,14 +16,14 @@ public class GetOrdersHandler(IApplicationDbContext dbContext)
             .Include(o => o.OrderItems)
             .AsNoTracking()
             .OrderBy(o => o.OrderName.Value)
-            .Skip(request.PaginationRequest.PageIndex * request.PaginationRequest.PageSize)
+            .Skip((request.PaginationRequest.PageNumber - 1) * request.PaginationRequest.PageSize)
             .Take(request.PaginationRequest.PageSize)
             .ToListAsync(cancellationToken: cancellationToken);
         
         var ordersResult = orders.ToOrderDtoList();
 
         var paginatedResult = new PaginatedResult<OrderDto>(
-            pageIndex: request.PaginationRequest.PageIndex,
+            pageIndex: request.PaginationRequest.PageNumber,
             pageSize: request.PaginationRequest.PageSize,
             count: await dbContext.Orders.LongCountAsync(cancellationToken: cancellationToken),
             data: ordersResult

@@ -6,6 +6,7 @@ using MediatR;
 namespace Catalog.API.Products.GetProducts;
 
 
+//TODO: Why not use PaginationRequest from BuildingBlocks.Pagination?
 public record GetProductRequest(int? PageNumber, int? PageSize);
 
 //TODO: Should have an DTO or ViewModel for the response

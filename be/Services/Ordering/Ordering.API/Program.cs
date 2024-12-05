@@ -1,4 +1,5 @@
 using Ordering.API;
+using Ordering.API.Middlewares;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Data.Extensions;
@@ -12,6 +13,9 @@ builder.Services
     .AddApiServices();
 
 var app = builder.Build();
+
+//Add middlewares to validate pagination.
+app.UseMiddleware<PaginationValidationMiddleware>();
 
 // Configure the HTTP request pipeline.
 app.UseApiServices();

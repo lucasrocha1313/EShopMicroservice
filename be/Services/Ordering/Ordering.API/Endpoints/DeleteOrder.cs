@@ -6,7 +6,7 @@ using Ordering.Application.Orders.Commands.DeleteOrder;
 namespace Ordering.API.Endpoints;
 
 // public record DeleteOrderRequest(Guid OrderId);
-public record DeleteOrderResponse(bool IsSuccessful);
+public record DeleteOrderResponse(bool IsSuccess);
 
 public class DeleteOrder: ICarterModule
 {

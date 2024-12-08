@@ -32,7 +32,7 @@ public static class OrderExtensions
         var payment = BuildPayment(orderDto.Payment);
 
         var newOrder = Order.Create(
-            id: OrderId.Of(orderDto.Id),
+            id: OrderId.Of(Guid.NewGuid()),
             customerId: CustomerId.Of(orderDto.CustomerId),
             orderName: OrderName.Of(orderDto.OrderName),
             shippingAddress: shippingAddress,

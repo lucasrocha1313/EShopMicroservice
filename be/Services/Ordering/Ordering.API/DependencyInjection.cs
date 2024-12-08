@@ -8,6 +8,7 @@ public static class DependencyInjection
     public static IServiceCollection AddApiServices(this IServiceCollection services)
     {
         services.AddCarter();
+        services.AddProblemDetails(); // Register a "default" response in case your IExceptionHandler return false
         services.AddExceptionHandler<CustomExceptionHandler>();
         
         services.AddEndpointsApiExplorer();
@@ -18,7 +19,7 @@ public static class DependencyInjection
     public static WebApplication UseApiServices(this WebApplication app)
     {
         app.MapCarter();
-        app.UseExceptionHandler(options => {}); //The empty options is a workaround to satisfy the framework's need for explicit configuration
+        app.UseExceptionHandler();
         return app;
     }
 }

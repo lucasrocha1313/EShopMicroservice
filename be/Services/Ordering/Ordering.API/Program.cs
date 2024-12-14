@@ -7,10 +7,11 @@ using Ordering.Infrastructure.Data.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container.
-builder.Services
-    .AddApplicationServices()
-    .AddInfrastructureServices(builder.Configuration)
-    .AddApiServices();
+var connectionString = builder.Configuration.GetConnectionString("Database") ?? string.Empty;
+builder
+    .Services.AddApplicationServices()
+    .AddInfrastructureServices(connectionString)
+    .AddApiServices(connectionString);
 
 var app = builder.Build();
 

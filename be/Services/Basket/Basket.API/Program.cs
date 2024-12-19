@@ -3,6 +3,7 @@ using Basket.API.Data;
 using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
+using BuildingBlocks.Messaging.MassTransit;
 using Carter;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
@@ -28,13 +29,14 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
-
 //Data services
-builder.Services.AddMarten(opts =>
-{
-    opts.Connection(builder.Configuration.GetConnectionString("Database") ?? string.Empty);
-    opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
-}).UseLightweightSessions();
+builder
+    .Services.AddMarten(opts =>
+    {
+        opts.Connection(builder.Configuration.GetConnectionString("Database") ?? string.Empty);
+        opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
+    })
+    .UseLightweightSessions();
 
 // Register repositories
 builder.Services.AddScoped<BasketRepository>();
@@ -44,8 +46,11 @@ builder.Services.AddScoped<BasketRepository>();
 builder.Services.AddScoped<IBasketRepository, CacheBasketRepository>(provider =>
 {
     var basketRepository = provider.GetRequiredService<BasketRepository>();
-    return new CacheBasketRepository(basketRepository, provider.GetRequiredService<IDistributedCache>(),
-        provider.GetRequiredService<IOptions<RedisOptions>>());
+    return new CacheBasketRepository(
+        basketRepository,
+        provider.GetRequiredService<IDistributedCache>(),
+        provider.GetRequiredService<IOptions<RedisOptions>>()
+    );
 });
 
 // Register options
@@ -64,10 +69,14 @@ builder.Services.AddGrpcClient<DiscountService.DiscountServiceClient>(opts =>
     opts.Address = new Uri(builder.Configuration["GrpcSettings:DiscountsUrl"] ?? string.Empty);
 });
 
+//Async communication services
+builder.Services.AddMessageBroker(builder.Configuration, assembly);
+
 //Cross-cutting Services
 // Register exception handler
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-builder.Services.AddHealthChecks()
+builder
+    .Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("Database") ?? string.Empty)
     .AddRedis(builder.Configuration.GetConnectionString("Redis") ?? string.Empty); // Add health check services
 
@@ -81,10 +90,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapCarter();
-app.UseExceptionHandler(_ =>{});
-app.UseHealthChecks("/health", new HealthCheckOptions
-{
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-}); // Add health check endpoint
+app.UseExceptionHandler(_ => { });
+app.UseHealthChecks(
+    "/health",
+    new HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse }
+); // Add health check endpoint
 
 app.Run();

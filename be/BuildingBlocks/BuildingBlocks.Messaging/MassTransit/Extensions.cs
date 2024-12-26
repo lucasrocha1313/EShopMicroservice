@@ -7,6 +7,14 @@ namespace BuildingBlocks.Messaging.MassTransit;
 
 public static class Extensions
 {
+    /// <summary>
+    /// Add message broker to the service collection
+    /// For consumers the assembly is needed to scan for consumers
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration">This is used to get settings information</param>
+    /// <param name="assembly">This is needed to scan the assembly for consumers. It is not needed for publishers.</param>
+    /// <returns></returns>
     public static IServiceCollection AddMessageBroker(
         this IServiceCollection services,
         IConfiguration configuration,

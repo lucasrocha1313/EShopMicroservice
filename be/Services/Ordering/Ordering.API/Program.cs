@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("Database") ?? string.Empty;
 builder
-    .Services.AddApplicationServices()
+    .Services.AddApplicationServices(builder.Configuration)
     .AddInfrastructureServices(connectionString)
     .AddApiServices(connectionString);
 

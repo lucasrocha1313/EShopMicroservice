@@ -53,7 +53,7 @@ public class BasketCheckoutEventHandler(ISender sender, ILogger<BasketCheckoutEv
             BillingAddress = addressDto,
             Payment = paymentDto,
             Status = OrderStatus.Pending,
-            OrderItems = //TODO - get order items from basket
+            OrderItems = //TODO - Important! Mocked. Get order items from basket
             [
                 new OrderItemDto(orderId, new Guid("BB8DB93C-051C-4715-8F5F-972896FB98F4"), 2, 500),
                 new OrderItemDto(orderId, new Guid("5E061E54-5665-412E-8407-13000962B4E7"), 1, 400),

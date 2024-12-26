@@ -30,11 +30,13 @@ public class CheckoutBasketCommandHandler(
                 cancellationToken
             );
 
+            //TODO: Add items to event
             var eventMessage = request.BasketCheckoutDto.Adapt<BasketCheckoutEvent>();
             eventMessage.TotalPrice = basket.TotalPrice;
 
             await publishEndpoint.Publish(eventMessage, cancellationToken);
 
+            //TODO: what happens if the event is not published or the order creation fails?
             await repository.DeleteBasket(request.BasketCheckoutDto.UserName, cancellationToken);
 
             return new CheckoutBasketResult(true);

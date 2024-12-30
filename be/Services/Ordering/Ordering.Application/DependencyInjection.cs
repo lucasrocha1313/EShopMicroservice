@@ -3,6 +3,7 @@ using BuildingBlocks.Behaviors;
 using BuildingBlocks.Messaging.MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FeatureManagement;
 
 namespace Ordering.Application;
 
@@ -19,6 +20,8 @@ public static class DependencyInjection
             conf.AddOpenBehavior(typeof(ValidationBehavior<,>));
             conf.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
+
+        services.AddFeatureManagement();
 
         // Add message broker
         // The assembly is needed here because this is a consumer

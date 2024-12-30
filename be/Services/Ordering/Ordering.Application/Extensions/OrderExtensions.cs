@@ -21,10 +21,10 @@ public static class OrderExtensions
                 BillingAddress = billingAddress,
                 Payment = payment,
                 Status = order.OrderStatus,
-                OrderItems = BuildOrderItemDtos(order.OrderItems)
+                OrderItems = BuildOrderItemDtos(order.OrderItems),
             };
     }
-    
+
     public static Order ToOrder(this OrderDto orderDto)
     {
         var shippingAddress = BuildAddress(orderDto.ShippingAddress);
@@ -47,39 +47,81 @@ public static class OrderExtensions
 
         return newOrder;
     }
-    
+
     public static void UpdateWithNewValues(this Order order, OrderDto requestOrder)
     {
         var updatedShippingAddress = BuildAddress(requestOrder.ShippingAddress);
         var updatedBillingAddress = BuildAddress(requestOrder.BillingAddress);
         var updatedPayment = BuildPayment(requestOrder.Payment);
 
-        order.Update(OrderName.Of(requestOrder.OrderName), updatedShippingAddress, updatedBillingAddress,
-            updatedPayment, requestOrder.Status);
+        order.Update(
+            OrderName.Of(requestOrder.OrderName),
+            updatedShippingAddress,
+            updatedBillingAddress,
+            updatedPayment,
+            requestOrder.Status
+        );
     }
-    
+
+    public static OrderDto ToOrderDto(this Order order)
+    {
+        return DtoFromOrder(order);
+    }
+
+    private static OrderDto DtoFromOrder(Order order)
+    {
+        var shippingAddress = BuildAddressDto(order.ShippingAddress);
+        var billingAddress = BuildAddressDto(order.BillingAddress);
+        var payment = BuildPaymentDto(order.Payment);
+        var orderDto = new OrderDto
+        {
+            Id = order.Id.Value,
+            CustomerId = order.CustomerId.Value,
+            OrderName = order.OrderName.Value,
+            ShippingAddress = shippingAddress,
+            BillingAddress = billingAddress,
+            Payment = payment,
+            Status = order.OrderStatus,
+            OrderItems = BuildOrderItemDtos(order.OrderItems),
+        };
+        return orderDto;
+    }
+
     private static Payment BuildPayment(PaymentDto payment)
     {
-        return Payment.Of(payment.CardName, payment.CardNumber,
-            payment.Expiration, payment.Cvv, payment.PaymentMethod);
+        return Payment.Of(
+            payment.CardName,
+            payment.CardNumber,
+            payment.Expiration,
+            payment.Cvv,
+            payment.PaymentMethod
+        );
     }
 
     private static Address BuildAddress(AddressDto address)
     {
-        var shippingAddress = Address.Of(address.FirstName, address.LastName,
-            address.EmailAddress, address.AddressLine, address.Country,
-            address.State, address.ZipCode);
+        var shippingAddress = Address.Of(
+            address.FirstName,
+            address.LastName,
+            address.EmailAddress,
+            address.AddressLine,
+            address.Country,
+            address.State,
+            address.ZipCode
+        );
         return shippingAddress;
     }
 
     private static List<OrderItemDto> BuildOrderItemDtos(IEnumerable<OrderItem> items)
     {
-        return items.Select(item => new OrderItemDto(
-            item.Id.Value,
-            item.ProductId.Value,
-            item.Quantity,
-            item.Price
-        )).ToList();
+        return items
+            .Select(item => new OrderItemDto(
+                item.Id.Value,
+                item.ProductId.Value,
+                item.Quantity,
+                item.Price
+            ))
+            .ToList();
     }
 
     private static PaymentDto BuildPaymentDto(Payment payment)

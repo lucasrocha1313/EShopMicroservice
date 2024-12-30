@@ -3,4 +3,7 @@ using Ordering.Domain.Models;
 
 namespace Ordering.Domain.Events;
 
-public class OrderCreatedEvent(Order order): IDomainEvent;
+public class OrderCreatedEvent : IDomainEvent
+{
+    public Order Order { get; init; }
+}

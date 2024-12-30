@@ -5,27 +5,34 @@ using Ordering.Domain.ValueObjects;
 
 namespace Ordering.Domain.Models;
 
-public class Order: Aggregate<OrderId>
+public class Order : Aggregate<OrderId>
 {
     private readonly List<OrderItem> _orderItems = [];
     public IReadOnlyList<OrderItem> OrderItems => _orderItems.AsReadOnly();
-    
+
     public CustomerId CustomerId { get; set; }
     public OrderName OrderName { get; set; } = default!;
 
     public Address ShippingAddress { get; set; } = default!;
     public Address BillingAddress { get; set; } = default!;
-    
+
     public Payment Payment { get; set; } = default!;
     public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
-    
+
     public decimal TotalPrice
     {
         get => OrderItems.Sum(x => x.Price * x.Quantity);
         private set { }
     }
 
-    public static Order Create(OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+    public static Order Create(
+        OrderId id,
+        CustomerId customerId,
+        OrderName orderName,
+        Address shippingAddress,
+        Address billingAddress,
+        Payment payment
+    )
     {
         var order = new Order
         {
@@ -35,22 +42,28 @@ public class Order: Aggregate<OrderId>
             ShippingAddress = shippingAddress,
             BillingAddress = billingAddress,
             Payment = payment,
-            OrderStatus = OrderStatus.Pending
+            OrderStatus = OrderStatus.Pending,
         };
-        
-        order.AddDomainEvent(new OrderCreatedEvent(order));
+
+        order.AddDomainEvent(new OrderCreatedEvent { Order = order });
 
         return order;
     }
 
-    public void Update(OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus orderStatus)
+    public void Update(
+        OrderName orderName,
+        Address shippingAddress,
+        Address billingAddress,
+        Payment payment,
+        OrderStatus orderStatus
+    )
     {
         OrderName = orderName;
         ShippingAddress = shippingAddress;
         BillingAddress = billingAddress;
         Payment = payment;
         OrderStatus = orderStatus;
-        
+
         AddDomainEvent(new OrderUpdatedEvent(this));
     }
 
@@ -58,43 +71,43 @@ public class Order: Aggregate<OrderId>
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price, nameof(price));
-        
+
         var itemExists = _orderItems.Any(item => item.ProductId == productId);
-        
+
         if (itemExists)
             throw new DomainException("Product already exists in the order");
-        
+
         var orderItem = new OrderItem(Id, productId, quantity, price);
         _orderItems.Add(orderItem);
     }
-    
+
     public void Remove(ProductId productId)
     {
         var orderItem = _orderItems.FirstOrDefault(item => item.ProductId == productId);
         if (orderItem is not null)
             _orderItems.Remove(orderItem);
     }
-    
+
     public void Clear()
     {
         _orderItems.Clear();
     }
-    
+
     public void IncreaseQuantity(ProductId productId, int quantity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
-        
+
         var orderItem = _orderItems.FirstOrDefault(item => item.ProductId == productId);
         if (orderItem is not null)
             orderItem.Quantity += quantity;
         else
             throw new DomainException("Product not found in the order");
     }
-    
+
     public void DecreaseQuantity(ProductId productId, int quantity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
-        
+
         var orderItem = _orderItems.FirstOrDefault(item => item.ProductId == productId);
         if (orderItem is not null)
         {

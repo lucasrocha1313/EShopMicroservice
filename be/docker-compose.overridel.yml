@@ -68,6 +68,7 @@ services:
         - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=basket;Password=basket@2024
         - ConnectionStrings__Redis=distributedcache:6379
         - GrpcSettings__DiscountsUrl=http://discount.grpc:8080
+        - MessageBroker__Host=amqp://messagebroker:5672
     depends_on:
       - basketdb
       - distributedcache

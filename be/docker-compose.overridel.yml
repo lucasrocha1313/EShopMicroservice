@@ -36,7 +36,7 @@ services:
       - "1433:1433"        
   
   messagebroker:
-    container_name: messagebroker
+    container_name: ecommerce-mq
     hostname: ecommerce-mq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
@@ -68,11 +68,14 @@ services:
         - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=basket;Password=basket@2024
         - ConnectionStrings__Redis=distributedcache:6379
         - GrpcSettings__DiscountsUrl=http://discount.grpc:8080
-        - MessageBroker__Host=amqp://messagebroker:5672
+        - MessageBroker__Host=amqp://ecommerce-mq:5672
+        - MessageBroker__Username=guest
+        - MessageBroker__Password=guest
     depends_on:
       - basketdb
       - distributedcache
       - discount.grpc
+      - messagebroker
     ports:
       - "6001:8080"
 #      - "6061:8081"

@@ -24,6 +24,7 @@ public class OrderCreatedEventHandler(
             return;
         }
 
+        //TODO - Continue this implementation
         var orderCreatedEvent = domainEvent.Order.ToOrderDto();
         await publishEndpoint.Publish(orderCreatedEvent, cancellationToken);
     }

@@ -1,4 +1,4 @@
-## Backend
+# Backend
 
 ### Building Blocks
 Main used packager are separate on a Building Block project so they can be reused in other projects
@@ -14,8 +14,8 @@ Main used packager are separate on a Building Block project so they can be reuse
 - Swashbuckle: Generates OpenAPI documentation for the API.
 - FluentValidation: Provides a fluent interface for validating objects.
 
-### Services
-#### Catalog
+## Services
+### Catalog
 
 This service manages the product lifecycle within the system, including creating, updating, deleting, and listing products.
 
@@ -31,7 +31,7 @@ This service manages the product lifecycle within the system, including creating
 - **DELETE /products/{id}**: Deletes a product by ID.
 - **GET /products/category/{category}**: Retrieves a list of products by category.
 
-#### Basket
+### Basket
 This service manages the shopping cart lifecycle within the system, including adding, updating, deleting, and listing items in the cart.
 
 **Key Architectural Decisions**
@@ -78,7 +78,14 @@ This service manages the order lifecycle within the system, including creating, 
 **Seed database**:
 - Database will be seeded with some initial data when the application starts. This is used for testing purposes.
 
-### How to run
+## Message Broker
+The services communicate with each other using a message broker (RabbitMQ). The message broker acts as an intermediary for sending messages between services asynchronously. This helps to decouple the services and improve the scalability and reliability of the system.
+
+## Api Gateway
+This service acts as an API gateway for the backend services, providing a unified entry point for clients to access the services.
+We will use YARP (Yet Another Reverse Proxy) to create the API Gateway. YARP is a reverse proxy toolkit for building fast proxy servers in .NET using the infrastructure from ASP.NET and .NET.
+
+## How to run
 - **Install Docker**: Ensure Docker is installed on your system.
 - **Start the Services**: Execute the following command in the project's root directory
 ```bash
@@ -96,7 +103,7 @@ curl --location --request GET 'http://localhost:6001/basket/some-username'
 
 `Note:  HTTPS is not supported in the current configuration due issues in setting up the certificates on linux. I'll fix this on the future.`
 
-### Migration
+## Migration
 - **Migrate the Database**: To migrate the database, execute the following command in the Ordering.Infrastructure project directory:
 ```bash
 dotnet ef migrations add {MigrationName} --output-dir Data/Migrations --project ../Ordering.Infrastructure --startup-project ../Ordering.API

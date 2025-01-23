@@ -49,7 +49,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-#        - ASPNETCORE_HTTPS_PORTS=8081 I need to found out how to install the development certificate
+#      - ASPNETCORE_HTTPS_PORTS=8081 #I need to found out how to install the development certificate
       - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgress@2024
     depends_on:
       - catalogdb
@@ -57,14 +57,14 @@ services:
       - "6000:8080"
 #      - "6060:8081"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+#      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro #I don't have local secrets at the moment
+      - $HOME/.aspnet/https:/home/app/.aspnet/https:ro
       
   basket.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-#        - ASPNETCORE_HTTPS_PORTS=8081 I need to found out how to install the development certificate
+#      - ASPNETCORE_HTTPS_PORTS=8081 #I need to found out how to install the development certificate
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=basket;Password=basket@2024
       - ConnectionStrings__Redis=distributedcache:6379
       - GrpcSettings__DiscountsUrl=http://discount.grpc:8080
@@ -80,8 +80,7 @@ services:
       - "6001:8080"
 #      - "6061:8081"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - $HOME/.aspnet/https:/home/app/.aspnet/https:ro
       
   discount.grpc:
     environment:
@@ -91,14 +90,13 @@ services:
     ports:
       - "6002:8080"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - $HOME/.aspnet/https:/home/app/.aspnet/https:ro
   
   ordering.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-#        - ASPNETCORE_HTTPS_PORTS=8081 I need to found out how to install the development certificate
+#      - ASPNETCORE_HTTPS_PORTS=8081 # I need to found out how to install the development certificate
       - ConnectionStrings__Database=Server=orderdb;Database=OrderDb;User Id=sa;Password=sqlserver@2024;Encrypt=False;TrustServerCertificate=True;
       - MessageBroker__Host=amqp://ecommerce-mq:5672
       - MessageBroker__Username=guest
@@ -111,5 +109,19 @@ services:
       - "6003:8080"
 #      - "6063:8081"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+  apiGateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+#      - ASPNETCORE_HTTPS_PORTS=8081 #I need to found out how to install the development certificate
+    depends_on:
+      - catalog.api
+      - basket.api
+      - ordering.api
+    ports:
+      - "6004:8080"
+#      - "6064:8081"
+    volumes:
+      - $HOME/.aspnet/https:/home/app/.aspnet/https:ro

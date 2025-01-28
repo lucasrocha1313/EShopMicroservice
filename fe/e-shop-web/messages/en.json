@@ -2,6 +2,8 @@
   "MainHeader": {
     "home": "Welcome to My Site!",
     "products": "Products",
+    "categories": "Categories",
+    "login": "Login",
     "switchTo": "Switch to {locale}"
   }
 }

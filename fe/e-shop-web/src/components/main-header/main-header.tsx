@@ -24,14 +24,13 @@ export default async function MainHeader({params}: Props){
                 <nav>
                     <ul>
                         <li>
-                            {/*TODO Replace to Link*/}
                             <Link href="/products">{t('products')}</Link>
                         </li>
                         <li>
-                            <Link href="/categories">Categories</Link>
+                            <Link href="/categories">{t('categories')}</Link>
                         </li>
                         <li>
-                            <Link href="/login">Login</Link>
+                            <Link href="/login">{t('login')}</Link>
                         </li>
                         <li>
                             <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />

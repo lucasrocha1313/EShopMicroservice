@@ -2,6 +2,8 @@
   "MainHeader": {
     "home": "Bem-vindo ao Meu Site!",
     "products": "Produtos",
+    "categories": "Categorias",
+    "login": "Entrar",
     "switchTo": "Mudar para {locale}"
   }
 }

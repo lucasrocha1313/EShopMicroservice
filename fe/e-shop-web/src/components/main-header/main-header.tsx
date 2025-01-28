@@ -1,7 +1,22 @@
 import classes from './main-header.module.css';
 import Link from "next/link";
+import {getTranslations, setRequestLocale} from "next-intl/server";
+import LanguageSwitcher from '../language-switcher';
 
-export default function MainHeader(){
+type Props = {
+    params: {locale: string};
+};
+
+export default async function MainHeader({params}: Props){
+    // Enable static rendering
+
+    const {locale} = await params;
+
+    setRequestLocale(locale);
+    const t = await getTranslations("MainHeader");
+    
+    const newLocale = locale === "en" ? "pt-br" : "en";
+
     return (
         <header className={classes.header}>
             <Link className={classes.logo} href="/">E-Shopping Marketplace</Link>
@@ -10,13 +25,16 @@ export default function MainHeader(){
                     <ul>
                         <li>
                             {/*TODO Replace to Link*/}
-                            <a href="/products">Products</a>
+                            <Link href="/products">{t('products')}</Link>
                         </li>
                         <li>
-                            <a href="/categories">Categories</a>
+                            <Link href="/categories">Categories</Link>
                         </li>
                         <li>
-                            <a href="/login">Login</a>
+                            <Link href="/login">Login</Link>
+                        </li>
+                        <li>
+                            <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />
                         </li>
                     </ul>
                 </nav>

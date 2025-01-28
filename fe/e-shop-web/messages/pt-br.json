@@ -1,0 +1,7 @@
+{
+  "MainHeader": {
+    "home": "Bem-vindo ao Meu Site!",
+    "products": "Produtos",
+    "switchTo": "Mudar para {locale}"
+  }
+}

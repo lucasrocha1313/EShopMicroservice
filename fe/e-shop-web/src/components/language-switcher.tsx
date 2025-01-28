@@ -26,7 +26,7 @@ type Props = {
         return  <span>Switching...</span>
   
     return (
-        <button onClick={switchLanguage} disabled={isPending}>
+        <button onClick={switchLanguage} disabled={isPending} style={{cursor: isPending ? "not-allowed" : "pointer"}}>
             {switchTo}
         </button>
     );

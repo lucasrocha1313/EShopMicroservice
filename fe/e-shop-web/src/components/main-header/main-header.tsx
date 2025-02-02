@@ -16,7 +16,6 @@ export default async function MainHeader({params}: Props){
     const t = await getTranslations("MainHeader");
     
     const newLocale = locale === "en" ? "pt-br" : "en";
-
     
 
     return (

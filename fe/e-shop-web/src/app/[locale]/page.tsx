@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
+import ProductsGrid from "@/components/products/products-grid";
 
 
 const API_URL = "http://localhost:6004/catalog-service/products"; //TODO - move to env
@@ -18,9 +19,6 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  //TODO move this to a component
-  //TODO create product card
-  //TODO create Product grid
   useEffect(() => {
     getProducts()
       .then((data) => {
@@ -32,8 +30,6 @@ export default function Home() {
         setLoading(false); 
       });
   }, []);
-
-
   
 
   if (loading) {
@@ -47,13 +43,10 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <div>
-          <h1>Products</h1>
-          <ul>
-            {products.map((product) => (
-              <li key={product.id}>{product.name} - ${product.price}</li>
-            ))}
-          </ul>
+        <div>          
+          <div>
+            <ProductsGrid products={products} />
+          </div>
         </div>  
       </main>      
     </div>

@@ -1,0 +1,9 @@
+.card{
+    width: 20rem;
+    height: 10rem;
+    border-radius: 10px;
+    box-shadow: 0 0 1rem rgba(23, 81, 240, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    margin: 1rem;
+}

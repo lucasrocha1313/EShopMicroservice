@@ -5,5 +5,10 @@
     "categories": "Categories",
     "login": "Login",
     "switchTo": "Switch to {locale}"
+  },
+  "Products": {
+    "title": "Products",
+    "description": "Here you can find all the products we offer.",
+    "noProducts": "No products available."
   }
 }

@@ -13,20 +13,20 @@ builder.Services.AddServices(builder.Configuration, builder.Environment.IsDevelo
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddHealthChecks()
+builder
+    .Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
 
 var app = builder.Build();
 
 //Configure the http request pipeline
 app.MapCarter();
-app.UseExceptionHandler(_ => {});
+app.UseExceptionHandler(_ => { });
 
-app.UseHealthChecks("/health", new HealthCheckOptions
-{
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
-
+app.UseHealthChecks(
+    "/health",
+    new HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse }
+);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

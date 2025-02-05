@@ -8,7 +8,7 @@
   },
   "Products": {
     "title": "Products",
-    "description": "Here you can find all the products we offer.",
+    "description": "Here you can find all the products we offer. The description of each product is on the language the user orinally used.",
     "noProducts": "No products available."
   }
 }

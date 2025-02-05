@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 import {notFound} from "next/navigation";
 import {routing} from "@/i18n/routing";
 import {setRequestLocale} from "next-intl/server";
-
+import BaseLayout from "@/components/layouts/base-layout";
 
 type Props = {
   children: ReactNode;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children, params
 }: Props) {
 
@@ -24,10 +24,12 @@ export default async function RootLayout({
   // Enable static rendering
   setRequestLocale(locale);
 
+  //TODO - find why cant I use IntlProvider here - https://next-intl.dev/docs/usage/configuration#client-server-components
+
   return (
-    <>
+    <BaseLayout locale={locale}>
       <MainHeader params={{locale}} />
-      {children}
-    </>
+      {children}   
+    </BaseLayout>
   );
 }

@@ -24,8 +24,6 @@ export default async function LocaleLayout({
   // Enable static rendering
   setRequestLocale(locale);
 
-  //TODO - find why cant I use IntlProvider here - https://next-intl.dev/docs/usage/configuration#client-server-components
-
   return (
     <BaseLayout locale={locale}>
       <MainHeader params={{locale}} />

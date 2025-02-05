@@ -8,7 +8,7 @@ export const routing = defineRouting({
         '/': '/',
         '/pathnames': {
             en: '/pathnames',
-            "pt-br": '/caminhos', //TODO: Check if this is correct
+            "pt-br": '/caminhos', 
         }
     }
 });

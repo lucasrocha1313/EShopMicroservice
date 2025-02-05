@@ -3,15 +3,8 @@
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import ProductsGrid from "@/components/products/products-grid";
+import { getProducts } from "@/lib/api/products";
 
-
-const API_URL = "http://localhost:6004/catalog-service/products"; //TODO - move to env
-
-async function getProducts(): Promise<Product[]> {
-  const res = await fetch(API_URL, { cache: "no-store" }); // no-store ensures fresh data
-  const data: ProductResponse =  await res.json();
-  return data.products;
-}
 
 
 export default function Home() {

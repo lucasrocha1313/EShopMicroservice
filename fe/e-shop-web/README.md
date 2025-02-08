@@ -38,6 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## TODO List
 
 - Navigate Producs page
+- Implement Search of products
 - Add products to cart
 - Remove products from cart
 - Calculate total price

@@ -37,8 +37,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## TODO List
 
+- Button to add to cart on products card
+- Style Product card
+  - Price (red background)
+  - Product name (top centered)
+  - image placeholder with no image for now
+- Create cart icon
 - Navigate Producs page
-- Implement Search of products
 - Add products to cart
 - Remove products from cart
 - Calculate total price
@@ -51,4 +56,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - Seller - Add new products
 - Seller - Remove products
 - Seller - Update products
+- Implement Search of products
 - Paginate products
+- Add to favorites

@@ -36,8 +36,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ## TODO List
-- Get products from server
-- Display products
+
+- Navigate Producs page
 - Add products to cart
 - Remove products from cart
 - Calculate total price
@@ -50,3 +50,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - Seller - Add new products
 - Seller - Remove products
 - Seller - Update products
+- Paginate products

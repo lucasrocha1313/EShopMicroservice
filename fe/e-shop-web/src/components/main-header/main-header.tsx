@@ -24,24 +24,34 @@ export default async function MainHeader({params}: Props){
 
     return (
         <header className={classes.header}>
-            <Link className={classes.logo} href="/">E-Shopping Marketplace</Link>
+        <Link className={classes.logo} href="/">E-Shopping Marketplace</Link>
             <div className={classes.navigation}>
                 <nav>
                     <ul>
                         <li>
+                            <Link href="/">{t('home')}</Link>
+                        </li>
+                        <li>
                             <Link href="/products">{t('products')}</Link>
                         </li>
                         <li>
-                            <Link href="/categories">{t('categories')}</Link>
+                            <Link href="/cart">{t('cart')}</Link>
                         </li>
                         <li>
-                            <Link href="/login">{t('login')}</Link>
-                        </li>
+                            <Link href="/order">{t('order')}</Link>
+                        </li>  
                         <li>
-                            <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />                            
-                        </li>
+                            <Link href="/contact">{t('contact')}</Link>
+                        </li>                           
                     </ul>
                 </nav>
+                <div className={classes.rightContent}>
+                    {/* TODO - Search */}
+                    <input type="text" placeholder='Search' />
+                    <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />
+                    <Link href="/login">{t('login')}</Link>
+                </div>                
+                
             </div>
         </header>
     );

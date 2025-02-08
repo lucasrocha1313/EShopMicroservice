@@ -1,8 +1,10 @@
 {
   "MainHeader": {
-    "home": "Welcome to My Site!",
+    "home": "Home",
     "products": "Products",
-    "categories": "Categories",
+    "cart": "Cart",
+    "contact": "Contact",
+    "order": "Order",
     "login": "Login",
     "switchTo": "Switch to {locale}"
   },

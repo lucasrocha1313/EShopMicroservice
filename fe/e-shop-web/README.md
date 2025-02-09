@@ -37,6 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## TODO List
 
+- Mobile view
 - Button to add to cart on products card
 - Style Product card
   - Price (red background)

@@ -41,14 +41,21 @@ export default async function MainHeader({params}: Props){
                     <li>
                         <Link href="/contact">{t('contact')}</Link>
                     </li>
-                </Menu>
+                    <li>
+                        <div className={classes.mobileBottom}>
+                            <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />
+                            <Link href="/login">{t('login')}</Link>
+                        </div>
+                    </li>
+                    </Menu>
                 <div className={classes.rightContent}>
                     {/* TODO - Search */}
                     <input type="text" placeholder='Search' />
                     <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />
                     <Link href="/login">{t('login')}</Link>
-                </div>                
-                
+                </div>
+                {/* TODO - create component to search         */}
+                <input className={classes.searchMobile} type="text" placeholder='Search' />
             </div>
         </header>
     );

@@ -16,8 +16,9 @@ export default function Menu({ children}: Props) {
     return (
         <>
 
-            <button className={classes.menuToggle} onClick={() => setMenuOpen(!menuOpen)}>
-                ☰
+            <button className={classes.menuToggle} >                
+                {!menuOpen ? <label onClick={() => setMenuOpen(!menuOpen)}>☰</label>: <label>Menu</label>}
+                {menuOpen ? <label onClick={() => setMenuOpen(false)}>✖</label>: undefined}
             </button>
             <div className={`${classes.navigation} ${menuOpen ? classes.open : ''}`}>
                 <nav className={classes.menu}>

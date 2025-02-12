@@ -18,6 +18,13 @@
       display: flex;
       gap: 1.5rem;
     }
+
+    .mobileBottom {
+      display: none;
+    }
+    .searchMobile {
+      display: none;
+    }
   }
 }
 
@@ -32,6 +39,23 @@
 
       .rightContent {
         display: none;
+      }
+
+      .mobileBottom {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        padding: 1rem;
+        background-color: #383838;
+      }
+
+      .searchMobile {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        padding: 1rem;
+        margin-top: 2rem;
       }
     }
   }

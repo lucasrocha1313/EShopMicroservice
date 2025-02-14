@@ -6,10 +6,14 @@ export const routing = defineRouting({
     defaultLocale: 'en',
     pathnames: {
         '/': '/',
-        '/pathnames': {
-            en: '/pathnames',
-            "pt-br": '/caminhos', 
-        }
+        '/products': '/products',
+        '/cart': {
+            en: '/cart',
+            "pt-br": '/carrinho', 
+        },
+        '/order': '/order',
+        '/contact':'/contact',
+        '/login':'/login'
     }
 });
 

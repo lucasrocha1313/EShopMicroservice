@@ -1,8 +1,8 @@
 import classes from './main-header.module.css';
-import Link from "next/link";
 import {getTranslations, setRequestLocale} from "next-intl/server";
 import LanguageSwitcher from '../language-switcher';
 import Menu from './menu';
+import { Link } from '@/i18n/routing';
 
 type Props = {
     params: {locale: string};

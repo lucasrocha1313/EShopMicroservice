@@ -1,3 +1,4 @@
+using BuildingBlocks.Pagination;
 using Carter;
 using Catalog.API.Extensions;
 using Catalog.API.Responses;
@@ -17,11 +18,11 @@ public class GetProductsEndpoint : ICarterModule
     {
         app.MapGet(
                 "/products",
-                async ([AsParameters] GetProductRequest request, ISender sender) =>
+                async ([AsParameters] PaginationRequest request, ISender sender) =>
                 {
-                    var query = request.Adapt<GetProductsQuery>();
-
-                    var result = await sender.Send(query);
+                    var result = await sender.Send(
+                        new GetProductsQuery(request.PageNumber, request.PageSize)
+                    );
 
                     var response = result.BuildProductResponse();
 

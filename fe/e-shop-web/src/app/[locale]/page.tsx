@@ -4,11 +4,14 @@ import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import ProductsGrid from "@/components/products/products-grid";
 import { getProducts } from "@/lib/api/products";
+import { useTranslations } from "next-intl";
 
 
 
 export default function Home() {
 
+  const t = useTranslations('Home');
+  
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +39,9 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <div>          
+        <div> 
+          <h1>{t('title')}</h1>
+          <p>{t('description')}</p>         
           <div>
             <ProductsGrid products={products} />
           </div>

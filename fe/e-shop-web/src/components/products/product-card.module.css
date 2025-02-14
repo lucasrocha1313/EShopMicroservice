@@ -8,6 +8,14 @@
     padding: 1rem;
     background-color: #0f0347;
 
+    &:hover {
+        transform: translateY(-0.5rem);
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
     .title {
         font-weight: 600;
         display: flex;

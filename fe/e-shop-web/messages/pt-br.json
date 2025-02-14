@@ -8,6 +8,10 @@
     "login": "Entrar",
     "switchTo": "Mudar para {locale}"
   },
+  "Home": {
+    "title": "Bem-vindo à nossa loja!",
+    "description": "Aqui está um gostinho dos nossos produtos. Se você quiser ver mais, vá para a página de produtos."
+  },
   "Products": {
     "title": "Produtos",
     "description": "Aqui você pode encontrar todos os produtos que oferecemos. A descrição de cada produto está no idioma que o usuário usou originalmente.",

@@ -90,6 +90,8 @@ We will use YARP (Yet Another Reverse Proxy) to create the API Gateway. YARP is 
 - **Start the Services**: Execute the following command in the project's root directory
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.overridel.yml up
+
+note: if the request fails, try to stop and run the command again. (TODO ivestigate why this happens)
 ```
 - **Access the Catalog Service:** The Catalog service will be available at http://localhost:6000/. Example request:
 ```bash

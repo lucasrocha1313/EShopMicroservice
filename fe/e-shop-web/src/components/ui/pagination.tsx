@@ -26,6 +26,7 @@ export default function Pagination({totalPages, currentPage, onPageChange}: Pagi
               style={{
                 fontWeight: currentPage === pageNumber ? "bold" : "normal",
                 textDecoration: currentPage === pageNumber ? "underline" : "none",
+                backgroundColor: currentPage === pageNumber ? "#0f0c47" : undefined,
               }}
             >
               {pageNumber}

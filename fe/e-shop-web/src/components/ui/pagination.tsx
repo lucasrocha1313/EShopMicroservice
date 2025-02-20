@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from 'next-intl';
 import classes from './pagination.module.css';
 
 interface PaginationProps {
@@ -7,10 +10,12 @@ interface PaginationProps {
 }
 
 export default function Pagination({totalPages, currentPage, onPageChange}: PaginationProps) {
+    const t = useTranslations('Pagination');
+
     return (
         <div className={classes.container}>
           <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-            Previous
+            {t('previous')}
           </button>
     
           {/* Page Number Buttons */}
@@ -28,7 +33,7 @@ export default function Pagination({totalPages, currentPage, onPageChange}: Pagi
           ))}
     
           <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-            Next
+            {t('next')}
           </button>
         </div>
       );

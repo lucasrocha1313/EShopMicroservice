@@ -16,5 +16,9 @@
     "title": "Produtos",
     "description": "Aqui você pode encontrar todos os produtos que oferecemos. A descrição de cada produto está no idioma que o usuário usou originalmente.",
     "noProducts": "Nenhum produto disponível."
+  },
+  "Pagination": {
+    "previous": "Anterior",
+    "next": "Próximo"
   }
 }

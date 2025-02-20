@@ -17,8 +17,8 @@ export default function Home() {
 
   useEffect(() => {
     getProducts()
-      .then((data) => {
-        setProducts(data);
+      .then((response) => {
+        setProducts(response.data);
         setLoading(false);
       })
       .catch((error) => {

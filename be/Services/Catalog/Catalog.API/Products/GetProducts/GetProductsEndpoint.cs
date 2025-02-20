@@ -7,10 +7,7 @@ using MediatR;
 
 namespace Catalog.API.Products.GetProducts;
 
-//TODO: Why not use PaginationRequest from BuildingBlocks.Pagination?
-public record GetProductRequest(int? PageNumber, int? PageSize);
-
-public record GetProductsResponse(IEnumerable<ProductResponse> Products);
+public record GetProductsResponse(PaginatedResult<ProductResponse> ProductsPaginated);
 
 public class GetProductsEndpoint : ICarterModule
 {

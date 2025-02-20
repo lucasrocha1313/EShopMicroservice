@@ -1,3 +1,4 @@
+using BuildingBlocks.Pagination;
 using Catalog.API.Models;
 using Catalog.API.Products.GetProductByCategory;
 using Catalog.API.Products.GetProductById;
@@ -10,9 +11,14 @@ public static class ResponseExtensions
 {
     public static GetProductsResponse BuildProductResponse(this GetProductsResult result)
     {
-        var productsResponse = result.Products.Select(x => x.BuildResponse());
-
-        var response = new GetProductsResponse(productsResponse);
+        var productsResponse = result.Products.Data.Select(x => x.BuildResponse());
+        
+        var response = new GetProductsResponse(new PaginatedResult<ProductResponse>(
+            result.Products.PageIndex,
+            result.Products.PageSize,
+            result.Products.Count,
+            productsResponse
+        ));
         return response;
     }
 

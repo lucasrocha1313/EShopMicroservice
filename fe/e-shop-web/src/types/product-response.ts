@@ -7,7 +7,14 @@ type Product = {
     price: number;
   };
   
-  type ProductResponse = {
-    products: Product[];
+  type ProductsPaginated = {
+    pageIndex: number;
+    pageSize: number;
+    count: number;
+    data: Product[];
   };
+
+  type ProductsResponse = {
+    productsPaginated: ProductsPaginated;
+  } 
   

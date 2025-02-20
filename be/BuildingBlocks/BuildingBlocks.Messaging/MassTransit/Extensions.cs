@@ -25,7 +25,7 @@ public static class Extensions
         {
             config.SetKebabCaseEndpointNameFormatter();
 
-            // Add consumers from the assembly
+            // Adds all consumers and consumer definitions in the specified an assembly.
             if (assembly != null)
                 config.AddConsumers(assembly);
 

@@ -47,12 +47,13 @@ export default async function MainHeader({params}: Props){
                             <Link href="/login">{t('login')}</Link>
                         </div>
                     </li>
-                    </Menu>
+                </Menu>                
                 <div className={classes.rightContent}>
                     {/* TODO - Search */}
                     <input type="text" placeholder='Search' />
                     <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />
                     <Link href="/login">{t('login')}</Link>
+                    <Link className={classes.cart} href="/cart">{t('cart')}<span>0</span></Link>
                 </div>
                 {/* TODO - create component to search         */}
                 <input className={classes.searchMobile} type="text" placeholder='Search' />

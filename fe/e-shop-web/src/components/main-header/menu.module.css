@@ -1,7 +1,6 @@
 .navigation {
     display: flex;
     justify-content: space-between;
-    width: 70%;
     font-size: 1rem;
 
     nav {
@@ -57,5 +56,22 @@
       padding-top: 2rem;
       justify-content: space-between;
       width: 100%;
+      padding-right: 1rem;
+
+      .cartMobile {
+        position: relative;
+        cursor: pointer;
+
+        span {
+          position: absolute;
+          top: -1rem;
+          right: -1rem;
+          background-color: rgb(3, 4, 82);
+          color: white;
+          border-radius: 50%;
+          padding: 0.2rem 0.5rem;
+          font-size: 0.8rem;
+        }
+      }
     }    
 }

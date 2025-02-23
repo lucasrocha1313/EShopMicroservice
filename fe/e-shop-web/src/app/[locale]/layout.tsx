@@ -4,6 +4,7 @@ import {notFound} from "next/navigation";
 import {routing} from "@/i18n/routing";
 import {setRequestLocale} from "next-intl/server";
 import BaseLayout from "@/components/layouts/base-layout";
+import CartProvider from "@/store/cart/provider";
 
 type Props = {
   children: ReactNode;
@@ -26,8 +27,10 @@ export default async function LocaleLayout({
 
   return (
     <BaseLayout locale={locale}>
-      <MainHeader params={{locale}} />
-      {children}   
+      <CartProvider>
+        <MainHeader params={{locale}} />
+        {children}  
+      </CartProvider>       
     </BaseLayout>
   );
 }

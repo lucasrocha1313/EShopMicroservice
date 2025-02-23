@@ -3,6 +3,7 @@ import {getTranslations, setRequestLocale} from "next-intl/server";
 import LanguageSwitcher from '../language-switcher';
 import Menu from './menu';
 import { Link } from '@/i18n/routing';
+import Cart from '../cart/cart';
 
 type Props = {
     params: {locale: string};
@@ -33,7 +34,7 @@ export default async function MainHeader({params}: Props){
                         <Link href="/products">{t('products')}</Link>
                     </li>
                     <li>
-                        <Link href="/cart">{t('cart')}</Link>
+                        <Link href="/cart">{t('cart')} <span>({0})</span></Link>
                     </li>
                     <li>
                         <Link href="/order">{t('order')}</Link>
@@ -53,7 +54,7 @@ export default async function MainHeader({params}: Props){
                     <input type="text" placeholder='Search' />
                     <LanguageSwitcher locale={locale} newLocale={newLocale} switchTo={t("switchTo", { locale: newLocale.toUpperCase() })} />
                     <Link href="/login">{t('login')}</Link>
-                    <Link className={classes.cart} href="/cart">{t('cart')}<span>0</span></Link>
+                    <Cart />
                 </div>
                 {/* TODO - create component to search         */}
                 <input className={classes.searchMobile} type="text" placeholder='Search' />
